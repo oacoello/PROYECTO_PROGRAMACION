@@ -8,6 +8,7 @@ int main()
 {
     /*Funciones de lectura/escritura*/
     ifstream lecturaUsuario("usuarios.txt");
+    //Comentario de Elias
     ifstream lecturaReservaciones("reservaciones.txt");
     ofstream escrituraUsuario("usuarios.txt");
     ofstream escrituraReservaciones("reservaciones.txt");
