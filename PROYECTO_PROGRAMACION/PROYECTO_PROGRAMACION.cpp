@@ -1,83 +1,105 @@
-﻿#include <iostream>
-#include<fstream>
-#include<string>
+﻿/*Esta parte del código contiene la función 'main' de nuestro proyecto.*/
+
+#include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
-int main()
+//Limite de datos para cada arreglo.
+const int datosMaximos = 10;
+
+string ReservacionNombre[datosMaximos] = {};
+string ReservacionID[datosMaximos] = {};
+string ReservacionPrecio[datosMaximos] = {};
+
+/*Funciones del programa*/
+void CrearReservacion()
 {
-    /*Funciones de lectura/escritura*/
-    ifstream lecturaUsuario("usuarios.txt");
-    ifstream lecturaReservaciones("reservaciones.txt");
-    ofstream escrituraUsuario("usuarios.txt");
-    ofstream escrituraReservaciones("reservaciones.txt");
+	char reservacion_nombre[50];
+	char reservacion_numero[5];
+	char reservacion_precio[5];
 
-    /*Valores comparables*/
-    string contrasenaUsuario, nombreUsuario;
+	/*Evitar que el cin de 'opcionUsuario' interfiera*/
+	cin.ignore();
 
-    /*Variables temporales*/
-    int opcionUsuario = 0;
-    int menuSeleccionado = 0;
+	cout << "Numero de reservación: >> ";
+	cin.getline(reservacion_numero, 5);
+	cout << "Nombre de la reservación: >> ";
+	cin.getline(reservacion_nombre, 50);
+	cout << "Costo de la reservación: >> ";
+	cin.getline(reservacion_precio, 5);
 
-    /*interfaz pantalla de inicio de sesion*/
+	for (int i = 0; i < datosMaximos; i++)
+	{
+		if (ReservacionID[i] == "\0")
+		{
+			ReservacionID[i] = reservacion_numero;
+			ReservacionNombre[i] = reservacion_nombre;
+			ReservacionPrecio[i] = reservacion_precio;
 
-    cout << "SISTEMA DE RESERVACIONES - UDH" << endl;
-    cout << "1.Iniciar sesion\n2.Crear cuenta\n3.Olvide mi contrasena" << endl << " > ";
-    cin >> opcionUsuario;
-
-
-    switch (opcionUsuario)
-    {
-    case 1:
-        menuSeleccionado = 1;
-        break;
-    case 2:
-        menuSeleccionado = 2;
-        break;
-    case 3:
-        menuSeleccionado = 3;
-        break;
-    }
-
-    /*Permitir entrar al sistema*/
-    int credenciales = 0;
-    string temp_usuarios;
-
-    if (menuSeleccionado == 1)
-    {
-        //interaz de inicio de sesion
-        cout << "Digite su usuario:" << endl << " > ";
-        cin >> nombreUsuario;
-        lecturaUsuario >> temp_usuarios;
-
-        cout <<  "valor de temp_usuarios: " << temp_usuarios;
-
-        if (nombreUsuario == temp_usuarios)
-        {
-            cout << "Digite su contrasena:" << endl << " > ";
-            cin >> contrasenaUsuario;
-            lecturaUsuario >> temp_usuarios;
-
-            if (contrasenaUsuario == temp_usuarios)
-            {
-                credenciales = 1;
-            }
-        }
-    }
-    else if (menuSeleccionado == 2)
-    {
-        cout << "se selecciono el menu 2";
-    }
-  
-     /*
-    cout << "*******************MENU***************";
-    cout << "Digite una opcion";
-    cout << "1. Reservar\n2. Actualizar\n3.Eliminar Reservacion\n4. Leer";
-    cin >> opcionUsuario;
-    
-    */
-
-    
+			break;
+		}
+	}
 }
 
+void MostrarReservacion()
+{
+	system("CLS");
+	cout << "LISTA DE RESERVACIONES" << endl;
+	cout << "========================" << endl;
 
+	int contador = 0;
+	cout << "  No.  |  ID  |    NOMBRE    |  PRECIO  " << endl;
+	cout << "--------------------------------------\n";
+
+	for (int i = 0; i < datosMaximos; i++)
+	{
+		if (ReservacionID[i] != "\0")
+		{
+			contador++;
+			cout << "   " << contador << "      " << ReservacionID[i] << "    " << ReservacionNombre[i] << "        " << ReservacionPrecio[i] << endl;
+		}
+	}
+
+	if (contador == 0)
+	{
+		cout << "***No hay reservaciones***\n" << endl;
+	}
+	cout << "=======================================" << endl;
+
+}
+
+int main()
+{
+	std::cout << "MENU\n";
+	int opcionUsuario; //determina el menu
+	system("CLS");
+
+	/*Menu principal*/
+	do {
+		cout << "1.Crear reservación." << endl;
+		cout << "2.Actualizar reservación" << endl;
+		cout << "3. Eliminar reservación" << endl;
+		cout << "4. Buscar reservación" << endl;
+		cout << "5. Mostrar todas las reservaciones" << endl;
+		cout << "6. Guardar datos y salir" << endl;
+		cout << "=======================================" << endl;
+
+		cout << "Seleccionar opcion >> ";
+		cin >> opcionUsuario;
+
+		/*Activar funcion segun 'opcionUsuario'*/
+		switch (opcionUsuario)
+		{
+		case 1:
+			CrearReservacion();
+			system("CLS");
+			break;
+		case 5:
+			MostrarReservacion();
+			break;
+		}
+
+	} while (opcionUsuario != 6);
+}

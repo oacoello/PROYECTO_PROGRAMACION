@@ -127,11 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="documentacion.cpp" />
     <ClCompile Include="PROYECTO_PROGRAMACION.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="reservaciones.txt" />
-    <Text Include="usuarios.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

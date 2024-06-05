@@ -18,9 +18,8 @@
     <ClCompile Include="PROYECTO_PROGRAMACION.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="usuarios.txt" />
-    <Text Include="reservaciones.txt" />
+    <ClCompile Include="documentacion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
