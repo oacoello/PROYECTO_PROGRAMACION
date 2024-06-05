@@ -6,7 +6,7 @@
 
 using namespace std;
 
-//Limite de datos para cada arreglo.
+//Limite de datos para cada arreglo
 const int datosMaximos = 10;
 
 string ReservacionNombre[datosMaximos] = {};
