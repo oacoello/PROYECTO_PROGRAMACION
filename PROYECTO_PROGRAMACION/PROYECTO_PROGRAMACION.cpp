@@ -70,16 +70,101 @@ void MostrarReservacion()
 
 }
 
+void BuscarReservacion(string busqueda)
+{
+	system("CLS");
+	cout << "LISTA DE RESULTADOS" << endl;
+	cout << "========================" << endl;
+
+	int contador = 0;
+	cout << "  No.  |  ID  |    NOMBRE    |  PRECIO  " << endl;
+	cout << "--------------------------------------\n";
+
+	int counter = 0; /*Es para el numero del ID.
+	Tambien nos servira como indicador para verificar
+	si se realizo una busqueda, en caso de que sea NO,
+	el contador no incrementara y se mantendra en contador = 0;*/
+
+	for (int i = 0; i < datosMaximos; i++)
+	{
+		if (ReservacionID[i] == busqueda)
+		{
+			contador++;
+			cout << "   " << contador << "      " << ReservacionID[i] << "    " << ReservacionNombre[i] << "        " << ReservacionPrecio[i] << endl << endl;
+			break;
+		}
+	}
+
+	if (contador == 0)
+	{
+		cout << "***No se encontraron resultados similares***\n";
+	}
+}
+
+void ActualizarReservacion(string busqueda)
+{
+	char ReservacionNombre_temporal[50];
+	char ReservacionID_temporal[5];
+	char ReservacionPrecio_temporal[5];
+
+	int contador = 0;
+
+	for (int i = 0; i < datosMaximos; i++)
+	{
+		contador++;
+		cout << "Nombre de la reservación: >> ";
+		cin.getline(ReservacionNombre_temporal, 50);
+		ReservacionNombre[i] = ReservacionNombre_temporal;
+
+		cout << "Precio de la reservación: >> ";
+		cin.getline(ReservacionPrecio_temporal, 5);
+		ReservacionPrecio[i] = ReservacionPrecio_temporal;
+
+		cout << "***Se han actualizado los datos correctamente***\n" << endl;
+		break;
+	}
+
+	if (contador == 0)
+	{
+		cout << "***No se encontraron resultados similares***\n";
+	}
+}
+
+void EliminarReservacion(string busqueda)
+{
+	int contador = 0;
+	for (int i = 0; i < datosMaximos; i++)
+	{
+		if (ReservacionID[i] == busqueda)
+		{
+			contador++;
+
+			ReservacionNombre[i] = "";
+			ReservacionPrecio[i] = "";
+			ReservacionID[i] = "";
+			cout << "La reservación ha sido eliminada\n" << endl;
+			break;
+		}
+	}
+
+
+	if (contador == 0)
+	{
+		cout << "***No se encontraron resultados similares***\n";
+	}
+}
+
 int main()
 {
 	std::cout << "MENU\n";
 	int opcionUsuario; //determina el menu
+	string reservacion_ID; //para buscar las reservaciones
 	system("CLS");
 
 	/*Menu principal*/
 	do {
-		cout << "1.Crear reservación." << endl;
-		cout << "2.Actualizar reservación" << endl;
+		cout << "1. Crear reservación." << endl;
+		cout << "2. Actualizar reservación" << endl;
 		cout << "3. Eliminar reservación" << endl;
 		cout << "4. Buscar reservación" << endl;
 		cout << "5. Mostrar todas las reservaciones" << endl;
@@ -90,11 +175,38 @@ int main()
 		cin >> opcionUsuario;
 
 		/*Activar funcion segun 'opcionUsuario'*/
+
+		/*NOTA:evitar que el cin usado en el getline
+		se duplique y cancele la operacion, provocando
+		que el loop no se cumpla.*/
+
 		switch (opcionUsuario)
 		{
 		case 1:
 			CrearReservacion();
 			system("CLS");
+			break;
+		case 2:
+			cin.ignore();
+			cout << "Buscar reservación por Número: >> ";
+			getline(cin, reservacion_ID);
+			ActualizarReservacion(reservacion_ID);
+			break;
+
+		case 3:
+			cin.ignore();
+			cout << "Ingrese Número de Reservación a eliminar >> ";
+			getline(cin, reservacion_ID);
+			EliminarReservacion(reservacion_ID);
+			cin.ignore();
+			system("CLS");
+			break;
+
+		case 4:
+			cin.ignore();
+			cout << "Buscar reservación por Número: >> ";
+			getline(cin, reservacion_ID);
+			BuscarReservacion(reservacion_ID);
 			break;
 		case 5:
 			MostrarReservacion();
