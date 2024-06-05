@@ -9,9 +9,14 @@ using namespace std;
 //Limite de datos para cada arreglo
 const int datosMaximos = 10;
 
+//Contenedores para info de las reservaciones *arrays*
 string ReservacionNombre[datosMaximos] = {};
 string ReservacionID[datosMaximos] = {};
 string ReservacionPrecio[datosMaximos] = {};
+
+//Contenedores para info de inicio de sesion *arrays*
+string UsuariosNombre[datosMaximos] = {};
+string UsuariosContrasena[datosMaximos] = {};
 
 /*Funciones del programa*/
 void CrearReservacion()
@@ -49,10 +54,11 @@ void MostrarReservacion()
 	cout << "LISTA DE RESERVACIONES" << endl;
 	cout << "========================" << endl;
 
-	int contador = 0;
+	
 	cout << "  No.  |  ID  |    NOMBRE    |  PRECIO  " << endl;
 	cout << "--------------------------------------\n";
 
+	int contador = 0; //para verificar si el ciclo for funciono
 	for (int i = 0; i < datosMaximos; i++)
 	{
 		if (ReservacionID[i] != "\0")
@@ -62,7 +68,7 @@ void MostrarReservacion()
 		}
 	}
 
-	if (contador == 0)
+	if (contador == 0) // verificando si el ciclo for anterior funciona
 	{
 		cout << "***No hay reservaciones***\n" << endl;
 	}
@@ -156,10 +162,12 @@ void EliminarReservacion(string busqueda)
 
 int main()
 {
+
 	std::cout << "MENU\n";
 	int opcionUsuario; //determina el menu
 	string reservacion_ID; //para buscar las reservaciones
 	system("CLS");
+
 
 	/*Menu principal*/
 	do {
