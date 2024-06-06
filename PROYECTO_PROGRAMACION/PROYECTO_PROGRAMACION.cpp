@@ -6,7 +6,9 @@
 
 using namespace std;
 
-//Limite de datos para cada arreglo
+/*Limite de entradas que nuestra base de datos tendra.
+La declaramos fuera del archivo 'datos.txt' por si
+queremos cambiarlo en alguna instancia*/
 const int datosMaximos = 10;
 
 //Contenedores para info de las reservaciones *arrays*º
