@@ -9,14 +9,15 @@ using namespace std;
 //Limite de datos para cada arreglo
 const int datosMaximos = 10;
 
-//Contenedores para info de las reservaciones *arrays*
+//Contenedores para info de las reservaciones *arrays*º
 string ReservacionNombre[datosMaximos] = {};
 string ReservacionID[datosMaximos] = {};
 string ReservacionPrecio[datosMaximos] = {};
 
-//Contenedores para info de inicio de sesion *arrays*
-string UsuariosNombre[datosMaximos] = {};
-string UsuariosContrasena[datosMaximos] = {};
+//Contenedores para info de inicio de sesion *arrays
+//DESCARTADO INICIO DE SESION
+/*string UsuariosNombre[datosMaximos] = {};
+string UsuariosContrasena[datosMaximos] = {};*/
 
 /*Funciones del programa*/
 void CrearReservacion()
@@ -162,15 +163,25 @@ void EliminarReservacion(string busqueda)
 
 int main()
 {
-
 	std::cout << "MENU\n";
 	int opcionUsuario; //determina el menu
 	string reservacion_ID; //para buscar las reservaciones
-	system("CLS");
+	
 
 
 	/*Menu principal*/
 	do {
+
+		
+
+		//bienvenida
+		cout << "================================" << endl;
+		cout << "|          UDH - V.IMM          |" << endl;
+		cout << "|   Sistema de Reservaciones    |" << endl;
+		cout << "|(Proyecto de Met. Programacion)|" << endl;
+		cout << "================================" << endl << endl;
+
+		//instrucciones
 		cout << "1. Crear reservación." << endl;
 		cout << "2. Actualizar reservación" << endl;
 		cout << "3. Eliminar reservación" << endl;
