@@ -3,8 +3,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <locale>
 
 using namespace std;
+
+/*Funcion para hacer que la aplicacion de consola
+lea los caracteres en español ( porqueVisual Studio
+no lo tiene activado por defecto)*/
+
 
 /*Limite de entradas que nuestra base de datos tendra.
 La declaramos fuera del archivo 'datos.txt' por si
@@ -22,6 +28,32 @@ string ReservacionPrecio[datosMaximos] = {};
 string UsuariosContrasena[datosMaximos] = {};*/
 
 /*Funciones del programa*/
+
+void AbrirArchivo()
+{
+	string linea;
+	ifstream basededatos("datos.txt");
+
+	if (basededatos.is_open())
+	{
+		int contadorx = 0;
+		while (getline(basededatos, linea))
+		{
+			//parametro para leer en el datos.txt
+			int tamanoLinea = linea.length();
+
+			ReservacionID[contadorx] = linea.substr(0, 3);
+			ReservacionNombre[contadorx] = linea.substr(4, 5);
+			ReservacionPrecio[contadorx] = linea.substr(10, 4);
+			contadorx++;
+		}
+	}
+	else
+	{
+		cout << "***No se encontro el archivo***" << endl;
+	}
+}
+
 void CrearReservacion()
 {
 	char reservacion_nombre[50];
@@ -31,11 +63,11 @@ void CrearReservacion()
 	/*Evitar que el cin de 'opcionUsuario' interfiera*/
 	cin.ignore();
 
-	cout << "Numero de reservación: >> ";
+	cout << "Numero de reservación (3 digitos): >> ";
 	cin.getline(reservacion_numero, 5);
-	cout << "Nombre de la reservación: >> ";
+	cout << "Nombre de la reservación: (5 caracteres)>> ";
 	cin.getline(reservacion_nombre, 50);
-	cout << "Costo de la reservación: >> ";
+	cout << "Costo de la reservación: (4 digitos)>> ";
 	cin.getline(reservacion_precio, 5);
 
 	for (int i = 0; i < datosMaximos; i++)
@@ -163,19 +195,36 @@ void EliminarReservacion(string busqueda)
 	}
 }
 
+void GuardarDatos()
+{
+	ofstream miarchivo;
+	miarchivo.open("datos.txt");
+
+	for (int i = 0; i < datosMaximos; i++)
+	{
+		if (ReservacionID[i] == "\0")
+		{
+			break;
+		}
+		else
+		{
+			miarchivo << ReservacionID[i] + "," + ReservacionNombre[i] + "," + ReservacionPrecio[i] << endl;
+		}
+	}
+}
+
 int main()
 {
+
 	std::cout << "MENU\n";
 	int opcionUsuario; //determina el menu
 	string reservacion_ID; //para buscar las reservaciones
+	AbrirArchivo();
 	
 
 
-	/*Menu principal*/
+	/*Menu principal*/ 
 	do {
-
-		
-
 		//bienvenida
 		cout << "================================" << endl;
 		cout << "|          UDH - V.IMM          |" << endl;
@@ -232,7 +281,14 @@ int main()
 		case 5:
 			MostrarReservacion();
 			break;
+		default:
+			cout << endl << endl;
+			break;
 		}
 
 	} while (opcionUsuario != 6);
+
+	GuardarDatos();
+	cout << "***Programa terminado, datos guardados." << endl;
+	return 0;
 }
